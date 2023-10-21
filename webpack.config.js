@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CssMinimizerPlugin =require ("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require ("mini-css-extract-plugin");
-
+const PREFIX = "/React-calculator"
 const isDev = process.env.NODE_ENV === "development";
 
 module.exports = {
@@ -30,6 +30,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "./dist"),
+    publicPath: NODE_ENV === "production" ? PREFIX + "/" : "/",
     clean: true,
     environment: {
       arrowFunction: false,
