@@ -1,7 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+const CssMinimizerPlugin =require ("css-minimizer-webpack-plugin");
+const MiniCssExtractPlugin = require ("mini-css-extract-plugin");
 
 const isDev = process.env.NODE_ENV === "development";
 
