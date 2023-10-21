@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p className="header-title">
-          Calculator
+          Simple Calculator
         </p>
         <div className="navigation">
           <Link to="/">Main page</Link>
