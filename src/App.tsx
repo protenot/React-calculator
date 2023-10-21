@@ -9,9 +9,9 @@ function App() {
           Simple Calculator
         </p>
         <div className="navigation">
-          <Link to="React-calculator/">Main page</Link>
-          <Link to="React-calculator/auth">Authorization</Link>
-          <Link to="React-calculator/about">Information</Link>
+          <Link to="/">Main page</Link>
+          <Link to="/auth">Authorization</Link>
+          <Link to="/about">Information</Link>
         </div>
       </header>
       <div>
