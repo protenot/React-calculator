@@ -4,9 +4,23 @@ const CssMinimizerPlugin =require ("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require ("mini-css-extract-plugin");
 const { NODE_ENV } = process.env;
 const PREFIX = "/React-calculator"
-const isDev = process.env.NODE_ENV === "development";
+const isDev = NODE_ENV === "development";
 
 module.exports = {
+    mode: NODE_ENV === "production" ? "production" : "development",
+
+    entry: {
+      main: path.resolve(__dirname, "./src/index.tsx"),
+    },
+    output: {
+      filename: "bundle.js",
+      path: path.resolve(__dirname, "./dist"),
+      publicPath: NODE_ENV === "production" ? PREFIX  : "/",
+      clean: true,
+      environment: {
+        arrowFunction: false,
+      },
+    },
   devServer: {
     client: {
       logging: "info",
@@ -19,24 +33,11 @@ module.exports = {
     historyApiFallback: true,
   },
   devtool:
-    process.env.NODE_ENV === "production"
+    NODE_ENV === "production"
       ? "hidden-source-map"
       : "eval-source-map",
 
-  mode: NODE_ENV === "production" ? "production" : "development",
-
-  entry: {
-    main: path.resolve(__dirname, "./src/index.tsx"),
-  },
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "./dist"),
-    publicPath: process.env.NODE_ENV === "production" ? PREFIX  : "/",
-    clean: true,
-    environment: {
-      arrowFunction: false,
-    },
-  },
+ 
   resolve: {
     extensions: [".js", ".ts", ".tsx", "jsx"],
   },
