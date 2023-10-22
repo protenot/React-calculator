@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require ("mini-css-extract-plugin");
 const { NODE_ENV } = process.env;
 const PREFIX = "/React-calculator"
 const isDev = NODE_ENV === "development";
+const webpack = require("webpack");
 
 module.exports = {
     mode: NODE_ENV === "production" ? "production" : "development",
@@ -83,5 +84,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: isDev ? "[name].css" : "[name].[contenthash].css",
     }),
+    new webpack.DefinePlugin({
+        'process.env.CONTENT_ROOT': JSON.stringify(NODE_ENV === "production" ? PREFIX  : "/"),
+   }),
   ],
 };
