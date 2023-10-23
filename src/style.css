@@ -1,0 +1,21 @@
+body{
+    background-color: azure;
+}
+
+.App-header-auth{
+    display: flex;
+}
+h1{
+    width:80%;
+}
+.auth-name{
+    background-color: aquamarine;
+    width: 20%;
+    height: 20px;
+    
+    
+}
+.navigation{
+    display:flex;
+    justify-content: space-around;
+}

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.tsx",
- 
   "scripts": {
     "start": "webpack-dev-server --open --define-process-env-node-env development",
     "build": "webpack build --define-process-env-node-env production",
@@ -56,6 +55,7 @@
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
     "@types/react-router-dom": "^5.3.3",
+    "firebase": "^10.5.0",
     "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
