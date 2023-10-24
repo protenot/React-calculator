@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./style.css";
 
-
 const basename = process.env.CONTENT_ROOT;
 
 const root = ReactDOM.createRoot(
@@ -12,8 +11,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <BrowserRouter  basename={basename}>
-    <App />
+    <BrowserRouter basename={basename}>
+      <App />
     </BrowserRouter>
   </React.StrictMode>,
 );
