@@ -1,38 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Input } from "./components/input";
 import { Button } from "./components/button";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link, Redirect } from "react-router-dom";
 import { authWithEmailAndPassword } from "./firebase/authWithEmailAndPassword";
 import { app } from "./firebase/firebase";
 import { UserCredential } from "firebase/auth";
+import { Authorization } from "./components/Authorization";
+import { useLocation } from "react-router-dom";
+import {  AuthProvider, useAuthContext } from "./components/AuthContext";
+import { Settings } from "./components/Settings";
 app;
+
+interface RouteParams {
+  userEmail: string | null;
+  isAuthenticated:boolean;
+}
 function App() {
-  const [inputEmailValue, setInputEmailValue] = useState<string>("");
-  const [inputPasswordValue, setInputPasswordValue] = useState<string>("");
-  const [userEmail, setUserEmail] = useState<string | null>(null);
-  const handleButtonClick = async () => {
-    const userCredential: UserCredential | void =
-      await authWithEmailAndPassword(inputEmailValue, inputPasswordValue);
-
-    /*  if (userCredential && userCredential.user) {
-   console.log('+++----'+  JSON.stringify(userCredential.user.email))
-   } */
-    if (userCredential) {
-      JSON.stringify(userCredential.user.email);
-      console.log("+++" + userCredential.user.email);
-      setUserEmail(JSON.stringify(userCredential.user.email));
-    }
-
-    setInputEmailValue(inputEmailValue);
-    setInputPasswordValue(inputPasswordValue);
-    console.log("Email:", setInputEmailValue);
-    console.log("Password:", setInputPasswordValue);
-
-    setInputEmailValue("");
-    setInputPasswordValue("");
-  };
-
+  
+  const location = useLocation<RouteParams>();
+  const userEmail = location.state ? location.state.userEmail : null;
+ // const isAuthenticated=location.state ? location.state.isAuthenticated : false;
+   const {isAuthenticated}=useAuthContext();
+  console.log(isAuthenticated) 
   return (
+   
     <div className="App">
       <header className="App-header">
         <div className="App-header-auth">
@@ -42,32 +33,30 @@ function App() {
             {userEmail ? <>{userEmail.replace(/"/g, "")}</> : "Unauthorized"}
           </p>
         </div>
+        {userEmail?(
         <div className="navigation">
           <Link to="/">Main page</Link>
           <Link to="/auth">Authorization</Link>
+         
+          <Link to="/settings">Settings</Link>
+          <Link to="/trends">Trends</Link>
           <Link to="/about">Information</Link>
-        </div>
+        </div>):
+        (<div className="navigation">
+        <Link to="/">Main page</Link>
+        <Link to="/auth">Authorization</Link>
+        <Link to="/about">Information</Link>
+      </div>)
+}
       </header>
       <div>
         <Switch>
           <Route exact path="/">
             <div>Главная страница</div>
           </Route>
-          <Route exact path="/auth">
-            <div className="login-page">
-              <Input
-                onInputChange={setInputEmailValue}
-                placeholderText={"Input email"}
-                labelText="Login"
-              />
-              <Input
-                onInputChange={setInputPasswordValue}
-                placeholderText={"Input password"}
-                labelText={"Password"}
-              />
-              <Button onClick={handleButtonClick}>Enter</Button>
-            </div>
-          </Route>
+          <Route exact path="/auth" component= {Authorization} />
+          <Route exact path="/settings" component= {Settings} />
+          
           <Route path="/about">
             <div>About</div>
           </Route>
@@ -75,6 +64,7 @@ function App() {
         </Switch>
       </div>
     </div>
+   
   );
 }
 export default App;

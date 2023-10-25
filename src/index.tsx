@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./style.css";
+import { AuthProvider } from "./components/AuthContext";
 
 const basename = process.env.CONTENT_ROOT;
 
@@ -12,7 +13,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter basename={basename}>
+  <AuthProvider>
       <App />
+      
+    </AuthProvider>  
     </BrowserRouter>
   </React.StrictMode>,
 );
